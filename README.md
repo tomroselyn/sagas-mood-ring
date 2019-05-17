@@ -40,7 +40,7 @@ We've given you some starter tags in the database. Feel free to change or add so
 
 ### Database
 - [x] Create Tag, Image tables 
-- [ ] Create a Junction Table for storing the tags associated with the images
+- [x] Create a Junction Table for storing the tags associated with the images
 
 ### Routes
 Feel free to make up your own. You may need others beyond these:

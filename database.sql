@@ -24,3 +24,10 @@ VALUES
 ('Inspirational'),
 ('Frantic'),
 ('Vertigo');
+
+--query for creating junction table
+CREATE TABLE "images_tags" (
+	"id" SERIAL PRIMARY KEY,
+	"images_id" INT REFERENCES "images",
+	"tags_id" INT REFERENCES "tags"
+);
