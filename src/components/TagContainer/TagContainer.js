@@ -12,6 +12,12 @@ class TagContainer extends Component {
         this.props.dispatch({type: 'FETCH_TAGS'});
     } //end componentDidMount
 
+    handleApplyTag = () => {
+        this.props.dispatch({type: 'ADD_TAG', payload: 
+            {img_id: (this.props.index + 1), tag_id: this.state.selectedTagId}
+        });
+    }
+
     //each time a tag is selected, local state updates
     handleSelectTag = (event) => {
         this.setState({
@@ -21,6 +27,7 @@ class TagContainer extends Component {
 
     render() {
 
+        //map applied tags to display on DOM -- match by id
         let appliedTags = <li>Hello</li>;
 
         //map all the tag options for the dropdown menu
@@ -40,7 +47,7 @@ class TagContainer extends Component {
                     <select onChange={this.handleSelectTag}>
                         {tagOptions}
                     </select>
-                    <button>APPLY TAG</button>
+                    <button onClick={this.handleApplyTag}>APPLY TAG</button>
                 </div>
             </div>
         )
