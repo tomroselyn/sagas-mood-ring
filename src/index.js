@@ -4,21 +4,55 @@ import './index.css';
 import App from './components/App/App.js';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-// Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
-// Import saga middleware
 import createSagaMiddleware from 'redux-saga';
+import { takeEvery, put } from 'redux-saga/effects';
+import axios from 'axios';
 
-// Create the rootSaga generator function
-function* rootSaga() {
-
-}
-
-// Create sagaMiddleware
+// create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Used to store images returned from the server
+// rootSaga generator function
+function* rootSaga() {
+    yield takeEvery('FETCH_IMAGES', fetchImages);
+    yield takeEvery('FETCH_TAGS', fetchTags);
+    yield takeEvery('ADD_TAG', addTag);
+} //end rootSaga
+
+//fetchImages saga -- requests image data from /api/images
+function* fetchImages(action) {
+    try {
+        const imagesResponse = yield axios.get('/api/images');
+        yield put({ type: 'SET_IMAGES', payload: imagesResponse.data });
+    } catch(err) {
+        console.log('error from fetchImages saga:', err);
+    }
+} //end fetchImages saga
+
+//fetchTags saga -- requests tag data from /api/tags
+function* fetchTags(action) {
+    try {
+        const tagsResponse = yield axios.get('/api/tags');
+        yield put({ type: 'SET_TAGS', payload: tagsResponse.data });
+    } catch(err) {
+        console.log('error from fetchTags saga:', err);
+    }
+} //end fetchTags saga
+
+//addTag saga -- requires payload to have img_id and tag_id
+//calls FETCH_IMAGES after post to refresh image list with new data
+function* addTag(action) {
+    try {
+        let q = action.payload;
+        yield axios.post(`api/images/addtag?image_id=${q.img_id}&tag_id=${q.tag_id}`);
+        yield put({ type: 'FETCH_IMAGES' });
+    } catch(err) {
+        console.log('error from addTag saga:', err);
+    }
+} //end addTag saga
+
+// images reducer
 const images = (state = [], action) => {
     switch (action.type) {
         case 'SET_IMAGES':
@@ -26,9 +60,9 @@ const images = (state = [], action) => {
         default:
             return state;
     }
-}
+} //end images reducer
 
-// Used to store the images tags (e.g. 'Inspirational', 'Calming', 'Energy', etc.)
+// tags reducer
 const tags = (state = [], action) => {
     switch (action.type) {
         case 'SET_TAGS':
@@ -36,19 +70,30 @@ const tags = (state = [], action) => {
         default:
             return state;
     }
-}
+} //end tags reducer
 
-// Create one store that all components can use
+// position reducer stores current position in image "carousel" (array)
+const position = (state = 0, action) => {
+    switch (action.type) {
+        case 'CHANGE_POSITION':
+            return action.payload;
+        default:
+            return state;
+    }
+} //end position reducer
+
+// store
 const storeInstance = createStore(
     combineReducers({
         images,
         tags,
+        position
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
 );
 
-// Pass rootSaga into our sagaMiddleware
+// pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, 
