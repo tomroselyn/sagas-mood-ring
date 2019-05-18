@@ -3,20 +3,22 @@ import {connect} from 'react-redux';
 
 class TagContainer extends Component {
 
+    //hold selected tag id in local state
     state = {
         selectedTagId: 1
     }
 
-    //get all the tags on mount
+    //get all the tag names and id's on mount
     componentDidMount = () => {
         this.props.dispatch({type: 'FETCH_TAGS'});
     } //end componentDidMount
 
+    //when button is clicked, dispatch image and selected tag id's in payload
     handleApplyTag = () => {
         this.props.dispatch({type: 'ADD_TAG', payload: 
             {img_id: (this.props.index + 1), tag_id: this.state.selectedTagId}
         });
-    }
+    } //end handleApplyTag
 
     //each time a tag is selected, local state updates
     handleSelectTag = (event) => {
@@ -27,12 +29,23 @@ class TagContainer extends Component {
 
     render() {
 
-        //map applied tags to display on DOM -- match by id
-        let appliedTags = <li>{this.props.images[this.props.index].tags}</li>;
+        //set applied image tags to variable
+        let appliedTags = this.props.images[this.props.index].tags;
 
-        //map all the tag options for the dropdown menu
-        let tagOptions = this.props.tags.map(tag => {
-            return <option key={tag.id} value={tag.id}>{tag.name}</option>;
+        //initialize eachTag for rendering
+        let eachTag;
+
+        //if there are applied tags, map through and make eachTag list items
+        if (appliedTags[0]) {
+            eachTag = appliedTags.map((tag, i) => {
+                //looking to redux tags reducer for names
+                return <li key={i}>{this.props.tags[tag - 1].name}</li>
+            })
+        }
+
+        //map all the tag options for the dropdown menu -- value is tag id
+        let tagOptions = this.props.tags.map((tag, i) => {
+            return <option key={i} value={tag.id}>{tag.name}</option>;
         })
 
         return (
@@ -40,7 +53,7 @@ class TagContainer extends Component {
                 <div>
                     <h4>Tags</h4>
                     <ul>
-                        {appliedTags}
+                        {eachTag}
                     </ul>
                 </div>
                 <div>
@@ -52,7 +65,7 @@ class TagContainer extends Component {
             </div>
         )
     }
-}
+} //end render
 
 const mapRedux = (redux) => {
     return {
