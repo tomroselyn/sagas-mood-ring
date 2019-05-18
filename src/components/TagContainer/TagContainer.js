@@ -28,7 +28,7 @@ class TagContainer extends Component {
     render() {
 
         //map applied tags to display on DOM -- match by id
-        let appliedTags = <li>Hello</li>;
+        let appliedTags = <li>{this.props.images[this.props.index].tags}</li>;
 
         //map all the tag options for the dropdown menu
         let tagOptions = this.props.tags.map(tag => {
