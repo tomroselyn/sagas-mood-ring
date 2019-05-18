@@ -48,3 +48,5 @@ router.post('/images/addtag', (req, res) => {
         res.sendStatus(500);
     })
 }) //end post /images/addtag
+
+module.exports = router;

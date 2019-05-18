@@ -53,7 +53,7 @@ function* addTag(action) {
 } //end addTag saga
 
 // images reducer
-const images = (state = [], action) => {
+const images = (state = [{title: 'Hello'}], action) => {
     switch (action.type) {
         case 'SET_IMAGES':
             return action.payload;
