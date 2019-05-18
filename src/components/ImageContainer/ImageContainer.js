@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import TagContainer from '../TagContainer/TagContainer';
 
 class ImageContainer extends Component {
 
@@ -40,6 +41,7 @@ class ImageContainer extends Component {
                 <button onClick={this.handlePrev}>PREV</button>
                 <button onClick={this.handleNext}>NEXT</button>
                 {/* tags component */}
+                <TagContainer />
             </div>
         )
     } //end render

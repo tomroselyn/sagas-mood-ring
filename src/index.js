@@ -53,7 +53,7 @@ function* addTag(action) {
 } //end addTag saga
 
 // images reducer
-const images = (state = [{title: 'Hello'}], action) => {
+const images = (state = [{ title: '', tags: [] }], action) => {
     switch (action.type) {
         case 'SET_IMAGES':
             return action.payload;
@@ -63,7 +63,7 @@ const images = (state = [{title: 'Hello'}], action) => {
 } //end images reducer
 
 // tags reducer
-const tags = (state = [], action) => {
+const tags = (state = [1], action) => {
     switch (action.type) {
         case 'SET_TAGS':
             return action.payload;
