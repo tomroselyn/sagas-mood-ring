@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import TagContainer from '../TagContainer/TagContainer';
-import {Paper} from '@material-ui/core';
+import {Paper, IconButton} from '@material-ui/core';
+import {ArrowBack, ArrowForward} from '@material-ui/icons';
 import './ImageContainer.css';
 
 class ImageContainer extends Component {
@@ -43,20 +44,24 @@ class ImageContainer extends Component {
             return (
                 <div>
                     {/* prev and next buttons */}
-                    <button onClick={this.handlePrev}>PREV</button>
-                    <button onClick={this.handleNext}>NEXT</button>
+
+                    {/* <button onClick={this.handlePrev}>PREV</button>
+                    <button onClick={this.handleNext}>NEXT</button> */}
                     {/* paper container */}
                     <Paper className="ImageContainer-paper">
-                        {/* image title */}
+                        {/* image title and nav arrows */}
+                        <IconButton className="ImageContainer-navBtn" onClick={this.handlePrev}>
+                            <ArrowBack />
+                        </IconButton>
                         <h3 className="ImageContainer-title">{this.props.images[this.props.index].title}</h3>
+                        <IconButton className="ImageContainer-navBtn" onClick={this.handleNext}>
+                            <ArrowForward />
+                        </IconButton>
                         {/* image */}
                         <img className="ImageContainer-image"
                             src={this.props.images[this.props.index].path}
                             alt={this.props.images[this.props.index].title} />
                     </Paper>
-                        {/* prev and next buttons */}
-                        <button onClick={this.handlePrev}>PREV</button>
-                        <button onClick={this.handleNext}>NEXT</button>
                     {/* tags component */}
                     <TagContainer />
                 </div>
