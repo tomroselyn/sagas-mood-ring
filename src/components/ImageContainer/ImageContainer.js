@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import TagContainer from '../TagContainer/TagContainer';
+import {Paper} from '@material-ui/core';
+import './ImageContainer.css';
 
 class ImageContainer extends Component {
 
@@ -40,13 +42,17 @@ class ImageContainer extends Component {
         } else {
             return (
                 <div>
-                    {/* image title */}
-                    <h3>{this.props.images[this.props.index].title}</h3>
-                    {/* image */}
-                    <img src={this.props.images[this.props.index].path} alt={this.props.images[this.props.index].title} />
-                    {/* prev and next buttons -- functions above */}
-                    <button onClick={this.handlePrev}>PREV</button>
-                    <button onClick={this.handleNext}>NEXT</button>
+                    <Paper className="ImageContainer-paper">
+                        {/* image title */}
+                        <h3 className="ImageContainer-title">{this.props.images[this.props.index].title}</h3>
+                        {/* image */}
+                        <img className="ImageContainer-image"
+                            src={this.props.images[this.props.index].path}
+                            alt={this.props.images[this.props.index].title} />
+                    </Paper>
+                        {/* prev and next buttons -- functions above */}
+                        <button onClick={this.handlePrev}>PREV</button>
+                        <button onClick={this.handleNext}>NEXT</button>
                     {/* tags component */}
                     <TagContainer />
                 </div>
