@@ -42,6 +42,10 @@ class ImageContainer extends Component {
         } else {
             return (
                 <div>
+                    {/* prev and next buttons */}
+                    <button onClick={this.handlePrev}>PREV</button>
+                    <button onClick={this.handleNext}>NEXT</button>
+                    {/* paper container */}
                     <Paper className="ImageContainer-paper">
                         {/* image title */}
                         <h3 className="ImageContainer-title">{this.props.images[this.props.index].title}</h3>
@@ -50,7 +54,7 @@ class ImageContainer extends Component {
                             src={this.props.images[this.props.index].path}
                             alt={this.props.images[this.props.index].title} />
                     </Paper>
-                        {/* prev and next buttons -- functions above */}
+                        {/* prev and next buttons */}
                         <button onClick={this.handlePrev}>PREV</button>
                         <button onClick={this.handleNext}>NEXT</button>
                     {/* tags component */}
