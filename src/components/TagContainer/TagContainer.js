@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Paper, Chip, TextField, MenuItem, Button} from '@material-ui/core';
+import './TagContainer.css';
 
 class TagContainer extends Component {
 
@@ -7,11 +9,6 @@ class TagContainer extends Component {
     state = {
         selectedTagId: 1
     }
-
-    //get all the tag names and id's on mount
-    componentDidMount = () => {
-        this.props.dispatch({type: 'FETCH_TAGS'});
-    } //end componentDidMount
 
     //when button is clicked, dispatch image and selected tag id's in payload
     handleApplyTag = () => {
@@ -39,29 +36,42 @@ class TagContainer extends Component {
         if (appliedTags[0]) {
             eachTag = appliedTags.map((tag, i) => {
                 //looking to redux tags reducer for names
-                return <li key={i}>{this.props.tags[tag - 1].name}</li>
+                return <Chip key={i} label={this.props.tags[tag - 1].name} 
+                    className={this.props.tags[tag - 1].name} />
             })
         }
 
         //map all the tag options for the dropdown menu -- value is tag id
         let tagOptions = this.props.tags.map((tag, i) => {
-            return <option key={i} value={tag.id}>{tag.name}</option>;
+            return <MenuItem key={i} value={tag.id}>{tag.name}</MenuItem>;
         })
 
         return (
             <div>
-                <div>
-                    <h4>Tags</h4>
-                    <ul>
+                <Paper className="TagContainer-paper">
+                    <h4 className="TagContainer-title">Tags</h4>
+                    <div className="TagContainer-form">
+                        <TextField
+                            id="select-tag"
+                            select
+                            label="Available Tags"
+                            value={this.state.selectedTagId}
+                            onChange={this.handleSelectTag}
+                            className="TagContainer-select"
+                            variant="outlined"
+                        >
+                            {tagOptions}
+                        </TextField>
+                        <Button variant="contained" className="TagContainer-button"
+                                onClick={this.handleApplyTag}>
+                            Apply Tag
+                        </Button>
+                        {/* <button onClick={this.handleApplyTag}>APPLY TAG</button> */}
+                    </div>
+                    <div className="TagContainer-chip-list">
                         {eachTag}
-                    </ul>
-                </div>
-                <div>
-                    <select onChange={this.handleSelectTag}>
-                        {tagOptions}
-                    </select>
-                    <button onClick={this.handleApplyTag}>APPLY TAG</button>
-                </div>
+                    </div>
+                </Paper>
             </div>
         )
     }

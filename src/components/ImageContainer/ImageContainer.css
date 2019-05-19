@@ -1,0 +1,25 @@
+.ImageContainer-paper {
+    box-sizing: border-box;
+    width: 75%;
+    min-width: 435px;
+    margin: 30px auto;
+    padding: 10px 40px 40px 40px;
+
+}
+
+.ImageContainer-title {
+    min-width: 35%;
+    margin: 20px;
+    display: inline-block;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-style: italic;
+    color: #333;
+}
+
+.ImageContainer-image {
+    width: 100%;
+}
+
+.ImageContainer-navBtn {
+    display: inline-block;
+}
