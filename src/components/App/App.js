@@ -7,8 +7,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
-          <h1>Mood Ring</h1>
+        <header className="App-header">
+          <h1 className="App-title">Mood Ring</h1>
+          <p className="App-intro">-- an image carousel with applied tags --</p>
         </header>
         <ImageContainer />
       </div>

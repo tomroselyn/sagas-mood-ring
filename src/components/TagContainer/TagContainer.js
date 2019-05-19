@@ -8,11 +8,6 @@ class TagContainer extends Component {
         selectedTagId: 1
     }
 
-    //get all the tag names and id's on mount
-    componentDidMount = () => {
-        this.props.dispatch({type: 'FETCH_TAGS'});
-    } //end componentDidMount
-
     //when button is clicked, dispatch image and selected tag id's in payload
     handleApplyTag = () => {
         this.props.dispatch({type: 'ADD_TAG', payload: 

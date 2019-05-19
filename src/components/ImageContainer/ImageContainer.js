@@ -5,6 +5,7 @@ import TagContainer from '../TagContainer/TagContainer';
 class ImageContainer extends Component {
 
     componentDidMount = () => {
+        this.props.dispatch({ type: 'FETCH_TAGS' });
         this.props.dispatch({type: 'FETCH_IMAGES'});
     } //end componentDidMount
 
@@ -31,19 +32,26 @@ class ImageContainer extends Component {
     } //end handlePrev
 
     render() {
-        return (
-            <div>
-                {/* image title */}
-                <h3>{this.props.images[this.props.index].title}</h3>
-                {/* image */}
-                <img src={this.props.images[this.props.index].path} alt={this.props.images[this.props.index].title} />
-                {/* prev and next buttons -- functions above */}
-                <button onClick={this.handlePrev}>PREV</button>
-                <button onClick={this.handleNext}>NEXT</button>
-                {/* tags component */}
-                <TagContainer />
-            </div>
-        )
+
+        if (this.props.images.length <= 0) {
+            return (
+                <p>Sorry, no images found!</p>
+            )
+        } else {
+            return (
+                <div>
+                    {/* image title */}
+                    <h3>{this.props.images[this.props.index].title}</h3>
+                    {/* image */}
+                    <img src={this.props.images[this.props.index].path} alt={this.props.images[this.props.index].title} />
+                    {/* prev and next buttons -- functions above */}
+                    <button onClick={this.handlePrev}>PREV</button>
+                    <button onClick={this.handleNext}>NEXT</button>
+                    {/* tags component */}
+                    <TagContainer />
+                </div>
+            )
+        }
     } //end render
 }
 
