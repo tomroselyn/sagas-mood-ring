@@ -29,7 +29,7 @@ Steps to get the development environment running.
 
 ## Screen Shot
 
-(Coming Soon)
+![Mood Ring Screenshot](public/images/mood-ring-screenshot.png)
 
 ## Documentation
 
